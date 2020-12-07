@@ -1,5 +1,10 @@
 package tripletex
 
+import (
+	"github.com/cydev/zero"
+	"github.com/omniboost/go-tripletex/omitempty"
+)
+
 type VoucherType struct {
 	ID      int    `json:"id"`
 	Version int    `json:"version"`
@@ -22,8 +27,8 @@ type Posting struct {
 	Product             *Product    `json:"project,omitempty"`
 	Department          *Department `json:"department,omitempty"`
 	VATType             *VATType    `json:"vatType,omitempty"`
-	Amount              int         `json:"amount,omitempty"`
-	AmountCurrency      int         `json:"amountCurrency,omitempty"`
+	Amount              float64     `json:"amount,omitempty"`
+	AmountCurrency      float64     `json:"amountCurrency,omitempty"`
 	AmountGross         float64     `json:"amountGross"`
 	AmountGrossCurrency float64     `json:"amountGrossCurrency"`
 	Currency            *Currency   `json:"currency,omitempty"`
@@ -94,6 +99,10 @@ type Customer struct {
 	Category3             *Category       `json:"category3,omitempty"`
 	InvoicesDueIn         int             `json:"invoicesDueIn,omitempty"`
 	InvoicesDueInType     string          `json:"invoicesDueInType,omitempty"`
+}
+
+func (c Customer) IsEmpty() bool {
+	return zero.IsZero(c)
 }
 
 type Supplier struct {
@@ -390,114 +399,66 @@ type Supplier struct {
 	// 		} `json:"category3"`
 }
 
+type Employees []Employee
+
 type Employee struct {
-	// 	Employee struct {
-	// 		ID                       int    `json:"id"`
-	// 		Version                  int    `json:"version"`
-	// 		FirstName                string `json:"firstName"`
-	// 		LastName                 string `json:"lastName"`
-	// 		EmployeeNumber           string `json:"employeeNumber"`
-	// 		DateOfBirth              string `json:"dateOfBirth"`
-	// 		Email                    string `json:"email"`
-	// 		PhoneNumberMobileCountry struct {
-	// 			ID      int `json:"id"`
-	// 			Version int `json:"version"`
-	// 		} `json:"phoneNumberMobileCountry"`
-	// 		PhoneNumberMobile      string `json:"phoneNumberMobile"`
-	// 		PhoneNumberHome        string `json:"phoneNumberHome"`
-	// 		PhoneNumberWork        string `json:"phoneNumberWork"`
-	// 		NationalIdentityNumber string `json:"nationalIdentityNumber"`
-	// 		Dnumber                string `json:"dnumber"`
-	// 		InternationalID        struct {
-	// 			IntAmeldingType string `json:"intAmeldingType"`
-	// 			Country         struct {
-	// 				ID      int `json:"id"`
-	// 				Version int `json:"version"`
-	// 			} `json:"country"`
-	// 			Number string `json:"number"`
-	// 		} `json:"internationalId"`
-	// 		BankAccountNumber     string `json:"bankAccountNumber"`
-	// 		Iban                  string `json:"iban"`
-	// 		Bic                   string `json:"bic"`
-	// 		CreditorBankCountryID int    `json:"creditorBankCountryId"`
-	// 		UsesAbroadPayment     bool   `json:"usesAbroadPayment"`
-	// 		UserType              string `json:"userType"`
-	// 		Comments              string `json:"comments"`
-	// 		Address               struct {
-	// 			ID           int    `json:"id"`
-	// 			Version      int    `json:"version"`
-	// 			AddressLine1 string `json:"addressLine1"`
-	// 			AddressLine2 string `json:"addressLine2"`
-	// 			PostalCode   string `json:"postalCode"`
-	// 			City         string `json:"city"`
-	// 			Country      struct {
-	// 				ID      int `json:"id"`
-	// 				Version int `json:"version"`
-	// 			} `json:"country"`
-	// 		} `json:"address"`
-	// 		Department struct {
-	// 			ID               int    `json:"id"`
-	// 			Version          int    `json:"version"`
-	// 			Name             string `json:"name"`
-	// 			DepartmentNumber string `json:"departmentNumber"`
-	// 		} `json:"department"`
-	// 		Employments []struct {
-	// 			ID           int    `json:"id"`
-	// 			Version      int    `json:"version"`
-	// 			EmploymentID string `json:"employmentId"`
-	// 			StartDate    string `json:"startDate"`
-	// 			EndDate      string `json:"endDate"`
-	// 			Division     struct {
-	// 				ID                 int    `json:"id"`
-	// 				Version            int    `json:"version"`
-	// 				Name               string `json:"name"`
-	// 				StartDate          string `json:"startDate"`
-	// 				EndDate            string `json:"endDate"`
-	// 				OrganizationNumber string `json:"organizationNumber"`
-	// 				Municipality       struct {
-	// 					ID      int `json:"id"`
-	// 					Version int `json:"version"`
-	// 				} `json:"municipality"`
-	// 			} `json:"division"`
-	// 			LastSalaryChangeDate     string `json:"lastSalaryChangeDate"`
-	// 			NoEmploymentRelationship bool   `json:"noEmploymentRelationship"`
-	// 			IsMainEmployer           bool   `json:"isMainEmployer"`
-	// 			TaxDeductionCode         string `json:"taxDeductionCode"`
-	// 			EmploymentDetails        []struct {
-	// 				ID                 int    `json:"id"`
-	// 				Version            int    `json:"version"`
-	// 				Date               string `json:"date"`
-	// 				EmploymentType     string `json:"employmentType"`
-	// 				MaritimeEmployment struct {
-	// 					ShipRegister string `json:"shipRegister"`
-	// 					ShipType     string `json:"shipType"`
-	// 					TradeArea    string `json:"tradeArea"`
-	// 				} `json:"maritimeEmployment"`
-	// 				RemunerationType   string `json:"remunerationType"`
-	// 				WorkingHoursScheme string `json:"workingHoursScheme"`
-	// 				ShiftDurationHours int    `json:"shiftDurationHours"`
-	// 				OccupationCode     struct {
-	// 					ID      int    `json:"id"`
-	// 					Version int    `json:"version"`
-	// 					NameNO  string `json:"nameNO"`
-	// 					Code    string `json:"code"`
-	// 				} `json:"occupationCode"`
-	// 				PercentageOfFullTimeEquivalent int `json:"percentageOfFullTimeEquivalent"`
-	// 				AnnualSalary                   int `json:"annualSalary"`
-	// 				HourlyWage                     int `json:"hourlyWage"`
-	// 				PayrollTaxMunicipalityID       struct {
-	// 					ID      int `json:"id"`
-	// 					Version int `json:"version"`
-	// 				} `json:"payrollTaxMunicipalityId"`
-	// 			} `json:"employmentDetails"`
-	// 		} `json:"employments"`
-	// 		HolidayAllowanceEarned struct {
-	// 			Year                   int `json:"year"`
-	// 			Amount                 int `json:"amount"`
-	// 			Basis                  int `json:"basis"`
-	// 			AmountExtraHolidayWeek int `json:"amountExtraHolidayWeek"`
-	// 		} `json:"holidayAllowanceEarned"`
-	// 	} `json:"employee"`
+	ID                       int    `json:"id"`
+	Version                  int    `json:"version"`
+	URL                      string `json:"url"`
+	FirstName                string `json:"firstName"`
+	LastName                 string `json:"lastName"`
+	EmployeeNumber           string `json:"employeeNumber"`
+	DateOfBirth              string `json:"dateOfBirth"`
+	Email                    string `json:"email"`
+	PhoneNumberMobileCountry struct {
+		ID  int    `json:"id"`
+		URL string `json:"url"`
+	} `json:"phoneNumberMobileCountry"`
+	PhoneNumberMobile      string `json:"phoneNumberMobile"`
+	PhoneNumberHome        string `json:"phoneNumberHome"`
+	PhoneNumberWork        string `json:"phoneNumberWork"`
+	NationalIdentityNumber string `json:"nationalIdentityNumber"`
+	Dnumber                string `json:"dnumber"`
+	InternationalID        struct {
+		IntAmeldingType interface{} `json:"intAmeldingType"`
+		Country         interface{} `json:"country"`
+		Number          string      `json:"number"`
+	} `json:"internationalId"`
+	BankAccountNumber            string `json:"bankAccountNumber"`
+	Iban                         string `json:"iban"`
+	Bic                          string `json:"bic"`
+	CreditorBankCountryID        int    `json:"creditorBankCountryId"`
+	UsesAbroadPayment            bool   `json:"usesAbroadPayment"`
+	AllowInformationRegistration bool   `json:"allowInformationRegistration"`
+	IsContact                    bool   `json:"isContact"`
+	Comments                     string `json:"comments"`
+	Address                      struct {
+		ID  int    `json:"id"`
+		URL string `json:"url"`
+	} `json:"address"`
+	Department struct {
+		ID  int    `json:"id"`
+		URL string `json:"url"`
+	} `json:"department"`
+	Employments []struct {
+		ID  int    `json:"id"`
+		URL string `json:"url"`
+	} `json:"employments"`
+	HolidayAllowanceEarned struct {
+		Year                   int     `json:"year"`
+		Amount                 float64 `json:"amount"`
+		Basis                  float64 `json:"basis"`
+		AmountExtraHolidayWeek float64 `json:"amountExtraHolidayWeek"`
+	} `json:"holidayAllowanceEarned"`
+	EmployeeCategory interface{} `json:"employeeCategory"`
+}
+
+func (e Employee) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(e)
+}
+
+func (e Employee) IsEmpty() bool {
+	return zero.IsZero(e)
 }
 
 type Project struct {
@@ -570,10 +531,10 @@ type Invoice struct {
 	Orders         Orders   `json:"orders"`
 	Voucher        Voucher  `json:"voucher"`
 	// Currency       Currency `json:"currency"`
-	InvoiceRemarks string `json:"invoiceRemarks"`
-	PaymentTypeID  int    `json:"paymentTypeId"`
-	PaidAmount     int    `json:"paidAmount"`
-	EhfSendStatus  string `json:"ehfSendStatus,omitempty"`
+	InvoiceRemarks string  `json:"invoiceRemarks"`
+	PaymentTypeID  int     `json:"paymentTypeId"`
+	PaidAmount     float64 `json:"paidAmount"`
+	EhfSendStatus  string  `json:"ehfSendStatus,omitempty"`
 }
 
 type Voucher struct {
@@ -597,12 +558,12 @@ type Order struct {
 	Customer Customer `json:"customer"`
 	// Contact            Contact  `json:"contact"`
 	// Attn               Attn     `json:"attn"`
-	ReceiverEmail      string `json:"receiverEmail"`
-	OverdueNoticeEmail string `json:"overdueNoticeEmail"`
-	Number             string `json:"number"`
-	Reference          string `json:"reference"`
-	// OurContact         Contact `json:"ourContact"`
-	// OurContactEmployee Contact `json:"ourContactEmployee"`
+	ReceiverEmail      string  `json:"receiverEmail"`
+	OverdueNoticeEmail string  `json:"overdueNoticeEmail"`
+	Number             string  `json:"number"`
+	Reference          string  `json:"reference"`
+	OurContact         Contact `json:"ourContact,omitempty"`
+	OurContactEmployee Contact `json:"ourContactEmployee,omitempty"`
 	// Department         struct {
 	// 	ID               int    `json:"id"`
 	// 	Version          int    `json:"version"`
@@ -633,6 +594,12 @@ type Order struct {
 	// IsSubscriptionAutoInvoicing                 bool       `json:"isSubscriptionAutoInvoicing"`
 }
 
+func (o Order) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(o)
+}
+
+type Contacts []Contact
+
 type Contact struct {
 	ID                       int    `json:"id"`
 	Version                  int    `json:"version"`
@@ -641,12 +608,21 @@ type Contact struct {
 	LastName                 string `json:"lastName"`
 	Email                    string `json:"email"`
 	PhoneNumberMobileCountry struct {
-		ID      int `json:"id"`
-		Version int `json:"version"`
+		ID      int    `json:"id"`
+		Version int    `json:"version"`
+		URL     string `json:"url"`
 	} `json:"phoneNumberMobileCountry"`
 	PhoneNumberMobile string   `json:"phoneNumberMobile"`
 	PhoneNumberWork   string   `json:"phoneNumberWork"`
-	Customer          Customer `json:"customer"`
+	Customer          Customer `json:"customer,omitempty"`
+}
+
+func (c Contact) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(c)
+}
+
+func (c Contact) IsEmpty() bool {
+	return zero.IsZero(c)
 }
 
 type Attn struct {
@@ -669,16 +645,26 @@ type Address struct {
 	ID           int      `json:"id"`
 	Version      int      `json:"version"`
 	URL          string   `json:"url"`
-	Employee     Employee `json:"employee"`
+	Employee     Employee `json:"employee,omitempty"`
 	AddressLine1 string   `json:"addressLine1"`
 	AddressLine2 string   `json:"addressLine2"`
 	PostalCode   string   `json:"postalCode"`
 	City         string   `json:"city"`
 	Country      struct {
-		ID      int `json:"id"`
-		Version int `json:"version"`
+		ID            int    `json:"id"`
+		Version       int    `json:"version"`
+		ISOAlpha2Code string `json:isoAlpha2Code`
+		ISOAlpha3Code string `json:isoAlpha3Code`
 	} `json:"country"`
 	Name string `json:"name"`
+}
+
+func (a Address) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(a)
+}
+
+func (a Address) IsEmpty() bool {
+	return zero.IsZero(a)
 }
 
 type OrderLines []OrderLine
@@ -805,10 +791,10 @@ type AccountManager struct {
 		} `json:"employmentDetails"`
 	} `json:"employments"`
 	HolidayAllowanceEarned struct {
-		Year                   int `json:"year"`
-		Amount                 int `json:"amount"`
-		Basis                  int `json:"basis"`
-		AmountExtraHolidayWeek int `json:"amountExtraHolidayWeek"`
+		Year                   int     `json:"year"`
+		Amount                 float64 `json:"amount"`
+		Basis                  float64 `json:"basis"`
+		AmountExtraHolidayWeek float64 `json:"amountExtraHolidayWeek"`
 	} `json:"holidayAllowanceEarned"`
 }
 
