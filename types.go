@@ -653,8 +653,8 @@ type Address struct {
 	Country      struct {
 		ID            int    `json:"id"`
 		Version       int    `json:"version"`
-		ISOAlpha2Code string `json:isoAlpha2Code`
-		ISOAlpha3Code string `json:isoAlpha3Code`
+		ISOAlpha2Code string `json:"isoAlpha2Code"`
+		ISOAlpha3Code string `json:"isoAlpha3Code"`
 	} `json:"country"`
 	Name string `json:"name"`
 }
