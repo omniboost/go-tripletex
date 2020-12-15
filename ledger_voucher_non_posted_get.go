@@ -7,44 +7,43 @@ import (
 	"github.com/omniboost/go-tripletex/utils"
 )
 
-func (c *Client) NewLedgerVoucherGetRequest() LedgerVoucherGetRequest {
-	r := LedgerVoucherGetRequest{
+func (c *Client) NewLedgerVoucherNonPostedGetRequest() LedgerVoucherNonPostedGetRequest {
+	r := LedgerVoucherNonPostedGetRequest{
 		client:  c,
 		method:  http.MethodGet,
 		headers: http.Header{},
 	}
 
-	r.queryParams = r.NewLedgerVoucherGetQueryParams()
-	r.pathParams = r.NewLedgerVoucherGetPathParams()
-	r.requestBody = r.NewLedgerVoucherGetRequestBody()
+	r.queryParams = r.NewLedgerVoucherNonPostedGetQueryParams()
+	r.pathParams = r.NewLedgerVoucherNonPostedGetPathParams()
+	r.requestBody = r.NewLedgerVoucherNonPostedGetRequestBody()
 	return r
 }
 
-type LedgerVoucherGetRequest struct {
+type LedgerVoucherNonPostedGetRequest struct {
 	client      *Client
-	queryParams *LedgerVoucherGetQueryParams
-	pathParams  *LedgerVoucherGetPathParams
+	queryParams *LedgerVoucherNonPostedGetQueryParams
+	pathParams  *LedgerVoucherNonPostedGetPathParams
 	method      string
 	headers     http.Header
-	requestBody LedgerVoucherGetRequestBody
+	requestBody LedgerVoucherNonPostedGetRequestBody
 }
 
-func (r LedgerVoucherGetRequest) NewLedgerVoucherGetQueryParams() *LedgerVoucherGetQueryParams {
-	return &LedgerVoucherGetQueryParams{
+func (r LedgerVoucherNonPostedGetRequest) NewLedgerVoucherNonPostedGetQueryParams() *LedgerVoucherNonPostedGetQueryParams {
+	return &LedgerVoucherNonPostedGetQueryParams{
 		From:  0,
 		Count: 100,
 	}
 }
 
-type LedgerVoucherGetQueryParams struct {
-	Number   string `schema:"number,omitempty"`
-	From     int    `schema:"from"`
-	Count    int    `schema:"count"`
-	DateFrom Date   `schema:"dateFrom"`
-	DateTo   Date   `schema:"dateTo"`
+type LedgerVoucherNonPostedGetQueryParams struct {
+	From     int  `schema:"from"`
+	Count    int  `schema:"count"`
+	DateFrom Date `schema:"dateFrom,omitempty"`
+	DateTo   Date `schema:"dateTo,omitempty"`
 }
 
-func (p LedgerVoucherGetQueryParams) ToURLValues() (url.Values, error) {
+func (p LedgerVoucherNonPostedGetQueryParams) ToURLValues() (url.Values, error) {
 	encoder := utils.NewSchemaEncoder()
 	encoder.RegisterEncoder(Date{}, utils.EncodeSchemaMarshaler)
 	params := url.Values{}
@@ -57,52 +56,52 @@ func (p LedgerVoucherGetQueryParams) ToURLValues() (url.Values, error) {
 	return params, nil
 }
 
-func (r *LedgerVoucherGetRequest) QueryParams() *LedgerVoucherGetQueryParams {
+func (r *LedgerVoucherNonPostedGetRequest) QueryParams() *LedgerVoucherNonPostedGetQueryParams {
 	return r.queryParams
 }
 
-func (r LedgerVoucherGetRequest) NewLedgerVoucherGetPathParams() *LedgerVoucherGetPathParams {
-	return &LedgerVoucherGetPathParams{}
+func (r LedgerVoucherNonPostedGetRequest) NewLedgerVoucherNonPostedGetPathParams() *LedgerVoucherNonPostedGetPathParams {
+	return &LedgerVoucherNonPostedGetPathParams{}
 }
 
-type LedgerVoucherGetPathParams struct {
+type LedgerVoucherNonPostedGetPathParams struct {
 }
 
-func (p *LedgerVoucherGetPathParams) Params() map[string]string {
+func (p *LedgerVoucherNonPostedGetPathParams) Params() map[string]string {
 	return map[string]string{}
 }
 
-func (r *LedgerVoucherGetRequest) PathParams() *LedgerVoucherGetPathParams {
+func (r *LedgerVoucherNonPostedGetRequest) PathParams() *LedgerVoucherNonPostedGetPathParams {
 	return r.pathParams
 }
 
-func (r *LedgerVoucherGetRequest) SetMethod(method string) {
+func (r *LedgerVoucherNonPostedGetRequest) SetMethod(method string) {
 	r.method = method
 }
 
-func (r *LedgerVoucherGetRequest) Method() string {
+func (r *LedgerVoucherNonPostedGetRequest) Method() string {
 	return r.method
 }
 
-func (r LedgerVoucherGetRequest) NewLedgerVoucherGetRequestBody() LedgerVoucherGetRequestBody {
-	return LedgerVoucherGetRequestBody{}
+func (r LedgerVoucherNonPostedGetRequest) NewLedgerVoucherNonPostedGetRequestBody() LedgerVoucherNonPostedGetRequestBody {
+	return LedgerVoucherNonPostedGetRequestBody{}
 }
 
-type LedgerVoucherGetRequestBody struct{}
+type LedgerVoucherNonPostedGetRequestBody struct{}
 
-func (r *LedgerVoucherGetRequest) RequestBody() *LedgerVoucherGetRequestBody {
+func (r *LedgerVoucherNonPostedGetRequest) RequestBody() *LedgerVoucherNonPostedGetRequestBody {
 	return &r.requestBody
 }
 
-func (r *LedgerVoucherGetRequest) SetRequestBody(body LedgerVoucherGetRequestBody) {
+func (r *LedgerVoucherNonPostedGetRequest) SetRequestBody(body LedgerVoucherNonPostedGetRequestBody) {
 	r.requestBody = body
 }
 
-func (r *LedgerVoucherGetRequest) NewResponseBody() *LedgerVoucherGetResponseBody {
-	return &LedgerVoucherGetResponseBody{}
+func (r *LedgerVoucherNonPostedGetRequest) NewResponseBody() *LedgerVoucherNonPostedGetResponseBody {
+	return &LedgerVoucherNonPostedGetResponseBody{}
 }
 
-type LedgerVoucherGetResponseBody struct {
+type LedgerVoucherNonPostedGetResponseBody struct {
 	FullResultSize int    `json:"fullResultSize"`
 	From           int    `json:"from"`
 	Count          int    `json:"count"`
@@ -140,11 +139,11 @@ type LedgerVoucherGetResponseBody struct {
 	TotalNumberOfPostings int `json:"totalNumberOfPostings"`
 }
 
-func (r *LedgerVoucherGetRequest) URL() url.URL {
-	return r.client.GetEndpointURL("/ledger/voucher", r.PathParams())
+func (r *LedgerVoucherNonPostedGetRequest) URL() url.URL {
+	return r.client.GetEndpointURL("/ledger/voucher/>nonPosted", r.PathParams())
 }
 
-func (r *LedgerVoucherGetRequest) Do() (LedgerVoucherGetResponseBody, error) {
+func (r *LedgerVoucherNonPostedGetRequest) Do() (LedgerVoucherNonPostedGetResponseBody, error) {
 	// fetch a new token if it isn't set already
 	if r.client.token == "" {
 		var err error
@@ -171,13 +170,13 @@ func (r *LedgerVoucherGetRequest) Do() (LedgerVoucherGetResponseBody, error) {
 	return *responseBody, err
 }
 
-func (r *LedgerVoucherGetRequest) All() (LedgerVoucherGetResponseBody, error) {
+func (r *LedgerVoucherNonPostedGetRequest) All() (LedgerVoucherNonPostedGetResponseBody, error) {
 	resp, err := r.Do()
 	if err != nil {
 		return resp, err
 	}
 
-	concat := LedgerVoucherGetResponseBody{}
+	concat := LedgerVoucherNonPostedGetResponseBody{}
 	concat.Count = resp.Count
 	concat.From = resp.From
 	concat.FullResultSize = resp.FullResultSize
