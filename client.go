@@ -271,14 +271,17 @@ func (c *Client) Do(req *http.Request, responseBody interface{}) (*http.Response
 		return httpResp, nil
 	}
 
-	err = c.Unmarshal(httpResp.Body, &responseBody)
+	errorResponse := &ErrorResponse{Response: httpResp}
+	err = c.Unmarshal(httpResp.Body, &responseBody, errorResponse)
 	if err != nil {
 		return httpResp, err
 	}
 
-	// if len(errorResponse.Messages) > 0 {
-	// 	return httpResp, errorResponse
-	// }
+	log.Printf("%+v", errorResponse)
+
+	if errorResponse.Message != "" {
+		return httpResp, errorResponse
+	}
 
 	return httpResp, nil
 }
@@ -403,6 +406,22 @@ type ValidationMessage struct {
 
 func (r *ErrorResponse) Error() string {
 	var errs *multierror.Error
+
+	// {
+	// 	"status" : 404,
+	// 	"code" : 6000,
+	// 	"message" : "Object not found",
+	// 	"link" : "https://www.tripletex.no/tripletex-api-2-0/",
+	// 	"developerMessage" : null,
+	// 	"validationMessages" : null,
+	// 	"requestId" : "49b47d52-f7b0-46d4-a546-d7c114b4b3b3"
+	// }
+
+	if r.Message != "" {
+		e := errors.Errorf("%d: %s", r.Code, r.Message)
+		errs = multierror.Append(errs, e)
+	}
+
 	for _, m := range r.ValidationMessages {
 		e := errors.Errorf("%s: %s", m.Field, m.Message)
 		errs = multierror.Append(errs, e)

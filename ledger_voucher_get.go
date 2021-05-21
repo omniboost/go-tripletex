@@ -113,6 +113,7 @@ type LedgerVoucherGetResponseBody struct {
 		URL         string `json:"url"`
 		Date        string `json:"date"`
 		Number      int    `json:"number"`
+		TempNumber  int    `json:"tempNumber"`
 		Year        int    `json:"year"`
 		Description string `json:"description"`
 		VoucherType struct {

@@ -8,7 +8,7 @@ import (
 
 func TestLedgerVoucherNonPostedGet(t *testing.T) {
 	req := client.NewLedgerVoucherNonPostedGetRequest()
-	req.QueryParams().Number = "FL-6037"
+	// req.QueryParams().Number = "FL-6037"
 	// req.QueryParams().DateFrom = tripletex.Date{time.Date(2020, 1, 1, 0, 0, 0, 0, time.Local)}
 	// req.QueryParams().DateTo = tripletex.Date{time.Now()}
 	req.QueryParams().Count = 1000
