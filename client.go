@@ -277,8 +277,6 @@ func (c *Client) Do(req *http.Request, responseBody interface{}) (*http.Response
 		return httpResp, err
 	}
 
-	log.Printf("%+v", errorResponse)
-
 	if errorResponse.Message != "" {
 		return httpResp, errorResponse
 	}
