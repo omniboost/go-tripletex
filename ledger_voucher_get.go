@@ -103,41 +103,11 @@ func (r *LedgerVoucherGetRequest) NewResponseBody() *LedgerVoucherGetResponseBod
 }
 
 type LedgerVoucherGetResponseBody struct {
-	FullResultSize int    `json:"fullResultSize"`
-	From           int    `json:"from"`
-	Count          int    `json:"count"`
-	VersionDigest  string `json:"versionDigest"`
-	Values         []struct {
-		ID          int    `json:"id"`
-		Version     int    `json:"version"`
-		URL         string `json:"url"`
-		Date        string `json:"date"`
-		Number      int    `json:"number"`
-		TempNumber  int    `json:"tempNumber"`
-		Year        int    `json:"year"`
-		Description string `json:"description"`
-		VoucherType struct {
-			ID  int    `json:"id"`
-			URL string `json:"url"`
-		} `json:"voucherType"`
-		ReverseVoucher interface{} `json:"reverseVoucher"`
-		Postings       []struct {
-			ID  int    `json:"id"`
-			URL string `json:"url"`
-		} `json:"postings"`
-		Document struct {
-			ID  int    `json:"id"`
-			URL string `json:"url"`
-		} `json:"document"`
-		Attachment struct {
-			ID  int    `json:"id"`
-			URL string `json:"url"`
-		} `json:"attachment"`
-		EdiDocument struct {
-			ID  int    `json:"id"`
-			URL string `json:"url"`
-		} `json:"ediDocument"`
-	} `json:"values"`
+	FullResultSize        int    `json:"fullResultSize"`
+	From                  int    `json:"from"`
+	Count                 int    `json:"count"`
+	VersionDigest         string `json:"versionDigest"`
+	Values                Vouchers
 	TotalNumberOfPostings int `json:"totalNumberOfPostings"`
 }
 

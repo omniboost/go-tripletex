@@ -537,6 +537,8 @@ type Invoice struct {
 	EhfSendStatus  string  `json:"ehfSendStatus,omitempty"`
 }
 
+type Vouchers []Voucher
+
 type Voucher struct {
 	ID          int          `json:"id,omitempty"`
 	Version     int          `json:"version,omitempty"`
