@@ -49,7 +49,7 @@ type Account struct {
 	Description                    string    `json:"description"`
 	VATType                        VATType   `json:"vatType"`
 	VATLocked                      bool      `json:"vatLocked"`
-	Currency                       *Currency `json:"currency"`
+	Currency                       *Currency `json:"currency,omitempty"`
 	IsCloseable                    bool      `json:"isCloseable"`
 	IsApplicableForSupplierInvoice bool      `json:"isApplicableForSupplierInvoice"`
 	RequireReconciliation          bool      `json:"requireReconciliation"`
@@ -64,6 +64,10 @@ type Account struct {
 	BankName         string `json:"bankName"`
 	BankAccountIBAN  string `json:"bankAccountIBAN"`
 	BankAccountSWIFT string `json:"bankAccountSWIFT"`
+}
+
+func (a Account) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(a)
 }
 
 type Customers []Customer
@@ -492,6 +496,10 @@ type Currency struct {
 	// Code        string `json:"code"`
 	// Description string `json:"description,omitempty"`
 	// Factor      int    `json:"factor,omitempty"`
+}
+
+func (c *Currency) IsEmpty() bool {
+	return c == nil || zero.IsZero(c)
 }
 
 type CloseGroup struct {
