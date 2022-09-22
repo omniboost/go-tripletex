@@ -471,12 +471,17 @@ type Project struct {
 type Product struct {
 }
 
+type Departments []Department
+
 type Department struct {
-	ID               int    `json:"id"`
-	Version          int    `json:"version"`
-	URL              string `json:"url"`
-	Name             string `json:"name"`
-	DepartmentNumber string `json:"departmentNumber"`
+	ID                int         `json:"id"`
+	Version           int         `json:"version"`
+	URL               string      `json:"url"`
+	Name              string      `json:"name"`
+	DepartmentNumber  string      `json:"departmentNumber"`
+	DepartmentManager interface{} `json:"departmentManager"`
+	DisplayName       string      `json:"displayName"`
+	IsInactive        bool        `json:"isInactive"`
 }
 
 type VATTypes []VATType
