@@ -27,6 +27,11 @@ func MarshalJSON(obj interface{}) ([]byte, error) {
 		valueField := val.Field(i)
 		f := valueField.Interface()
 
+		if isNil(f) {
+			fs[i].Tag = reflect.StructTag(`json:"-"`)
+			continue
+		}
+
 		if isempty, ok := f.(IsEmptier); ok {
 			if !isempty.IsEmpty() {
 				continue

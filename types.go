@@ -38,6 +38,14 @@ type Posting struct {
 	Row                 int         `json:"row,omitempty"`
 }
 
+func (p Posting) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(p)
+}
+
+func (p Posting) IsEmpty() bool {
+	return zero.IsZero(p)
+}
+
 type Accounts []Account
 
 type Account struct {
@@ -474,14 +482,22 @@ type Product struct {
 type Departments []Department
 
 type Department struct {
-	ID                int         `json:"id"`
-	Version           int         `json:"version"`
-	URL               string      `json:"url"`
-	Name              string      `json:"name"`
-	DepartmentNumber  string      `json:"departmentNumber"`
-	DepartmentManager interface{} `json:"departmentManager"`
-	DisplayName       string      `json:"displayName"`
-	IsInactive        bool        `json:"isInactive"`
+	ID                int         `json:"id,omitempty"`
+	Version           int         `json:"version,omitempty"`
+	URL               string      `json:"url,omitempty"`
+	Name              string      `json:"name,omitempty"`
+	DepartmentNumber  string      `json:"departmentNumber,omitempty"`
+	DepartmentManager interface{} `json:"departmentManager,omitempty"`
+	DisplayName       string      `json:"displayName,omitempty"`
+	IsInactive        bool        `json:"isInactive,omitempty"`
+}
+
+func (d Department) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(d)
+}
+
+func (d Department) IsEmpty() bool {
+	return zero.IsZero(d)
 }
 
 type VATTypes []VATType
