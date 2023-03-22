@@ -715,14 +715,14 @@ type OrderLine struct {
 	// } `json:"inventory"`
 	Description                   string  `json:"description"`
 	Count                         int     `json:"count"`
-	UnitCostCurrency              int     `json:"unitCostCurrency"`
-	UnitPriceExcludingVATCurrency float64 `json:"unitPriceExcludingVatCurrency"`
+	UnitCostCurrency              int     `json:"unitCostCurrency,omitempty"`
+	UnitPriceExcludingVATCurrency float64 `json:"unitPriceExcludingVatCurrency,omitempty"`
 	// Currency                      Currency `json:"currency"`
 	// Markup                        int     `json:"markup"`
 	// Discount                      int     `json:"discount"`
 	VATType                       VATType `json:"vatType"`
-	UnitPriceIncludingVATCurrency float64 `json:"unitPriceIncludingVatCurrency"`
-	AmountExcludingVATCurrency    float64 `json:"amountExcludingVatCurrency"`
+	UnitPriceIncludingVATCurrency float64 `json:"unitPriceIncludingVatCurrency,omitempty"`
+	AmountExcludingVATCurrency    float64 `json:"amountExcludingVatCurrency,omitempty"`
 	AmountIncludingVATCurrency    float64 `json:"amountIncludingVatCurrency"`
 	// IsSubscription                bool    `json:"isSubscription"`
 	// SubscriptionPeriodStart       string  `json:"subscriptionPeriodStart"`
