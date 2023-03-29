@@ -612,7 +612,7 @@ type Order struct {
 	DeliveryDate string `json:"deliveryDate"`
 	// DeliveryAddress                             Address    `json:"deliveryAddress"`
 	// DeliveryComment                             string     `json:"deliveryComment"`
-	// IsPrioritizeAmountsIncludingVat             bool       `json:"isPrioritizeAmountsIncludingVat"`
+	IsPrioritizeAmountsIncludingVat bool `json:"isPrioritizeAmountsIncludingVat"`
 	// OrderLineSorting                            string     `json:"orderLineSorting"`
 	OrderLines OrderLines `json:"orderLines"`
 	// IsSubscription                              bool       `json:"isSubscription"`
