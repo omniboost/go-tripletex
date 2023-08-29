@@ -4,6 +4,8 @@ import (
 	"net/http"
 	"net/url"
 
+	"github.com/cydev/zero"
+	"github.com/omniboost/go-tripletex/omitempty"
 	"github.com/omniboost/go-tripletex/utils"
 )
 
@@ -82,6 +84,14 @@ func (r InvoicePostRequest) NewInvoicePostRequestBody() InvoicePostRequestBody {
 }
 
 type InvoicePostRequestBody Invoice
+
+func (i InvoicePostRequestBody) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(i)
+}
+
+func (i InvoicePostRequestBody) IsEmpty() bool {
+	return zero.IsZero(i)
+}
 
 func (r *InvoicePostRequest) RequestBody() *InvoicePostRequestBody {
 	return &r.requestBody

@@ -103,74 +103,16 @@ func (r *OrderSearchRequest) NewResponseBody() *OrderSearchResponseBody {
 }
 
 type OrderSearchResponseBody struct {
-	FullResultSize        int                           `json:"fullResultSize"`
-	From                  int                           `json:"from"`
-	Count                 int                           `json:"count"`
-	VersionDigest         string                        `json:"versionDigest"`
-	Values                OrderSearchResponseBodyValues `json:"values"`
-	TotalNumberOfPostings int                           `json:"totalNumberOfPostings"`
+	FullResultSize        int    `json:"fullResultSize"`
+	From                  int    `json:"from"`
+	Count                 int    `json:"count"`
+	VersionDigest         string `json:"versionDigest"`
+	Values                Orders `json:"values"`
+	TotalNumberOfPostings int    `json:"totalNumberOfPostings"`
 }
 
 func (r *OrderSearchRequest) URL() url.URL {
 	return r.client.GetEndpointURL("/order", r.PathParams())
-}
-
-type OrderSearchResponseBodyValues []OrderSearchResponseBodyValue
-
-type OrderSearchResponseBodyValue struct {
-	ID       int    `json:"id"`
-	Version  int    `json:"version"`
-	URL      string `json:"url"`
-	Customer struct {
-		ID  int    `json:"id"`
-		URL string `json:"url"`
-	} `json:"customer"`
-	Contact            interface{} `json:"contact"`
-	Attn               interface{} `json:"attn"`
-	ReceiverEmail      string      `json:"receiverEmail"`
-	OverdueNoticeEmail string      `json:"overdueNoticeEmail"`
-	Number             string      `json:"number"`
-	Reference          string      `json:"reference"`
-	OurContactEmployee struct {
-		ID  int    `json:"id"`
-		URL string `json:"url"`
-	} `json:"ourContactEmployee,omitempty"`
-	Department     interface{} `json:"department"`
-	OrderDate      string      `json:"orderDate"`
-	Project        interface{} `json:"project"`
-	InvoiceComment string      `json:"invoiceComment"`
-	Currency       struct {
-		ID  int    `json:"id"`
-		URL string `json:"url"`
-	} `json:"currency"`
-	InvoicesDueIn                   int         `json:"invoicesDueIn"`
-	InvoicesDueInType               string      `json:"invoicesDueInType"`
-	IsShowOpenPostsOnInvoices       bool        `json:"isShowOpenPostsOnInvoices"`
-	IsClosed                        bool        `json:"isClosed"`
-	DeliveryDate                    string      `json:"deliveryDate"`
-	DeliveryAddress                 interface{} `json:"deliveryAddress"`
-	DeliveryComment                 string      `json:"deliveryComment"`
-	IsPrioritizeAmountsIncludingVat bool        `json:"isPrioritizeAmountsIncludingVat"`
-	OrderLineSorting                string      `json:"orderLineSorting"`
-	OrderLines                      []struct {
-		ID  int    `json:"id"`
-		URL string `json:"url"`
-	} `json:"orderLines"`
-	IsSubscription                              bool          `json:"isSubscription"`
-	SubscriptionDuration                        int           `json:"subscriptionDuration"`
-	SubscriptionDurationType                    string        `json:"subscriptionDurationType"`
-	SubscriptionPeriodsOnInvoice                int           `json:"subscriptionPeriodsOnInvoice"`
-	SubscriptionPeriodsOnInvoiceType            string        `json:"subscriptionPeriodsOnInvoiceType"`
-	SubscriptionInvoicingTimeInAdvanceOrArrears string        `json:"subscriptionInvoicingTimeInAdvanceOrArrears"`
-	SubscriptionInvoicingTime                   int           `json:"subscriptionInvoicingTime"`
-	SubscriptionInvoicingTimeType               string        `json:"subscriptionInvoicingTimeType"`
-	IsSubscriptionAutoInvoicing                 bool          `json:"isSubscriptionAutoInvoicing"`
-	PreliminaryInvoice                          interface{}   `json:"preliminaryInvoice"`
-	Attachment                                  []interface{} `json:"attachment"`
-	OurContact                                  struct {
-		ID  int    `json:"id"`
-		URL string `json:"url"`
-	} `json:"ourContact,omitempty"`
 }
 
 func (r *OrderSearchRequest) Do() (OrderSearchResponseBody, error) {

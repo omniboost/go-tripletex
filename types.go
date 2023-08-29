@@ -1,6 +1,8 @@
 package tripletex
 
 import (
+	"log"
+
 	"github.com/cydev/zero"
 	"github.com/omniboost/go-tripletex/omitempty"
 )
@@ -548,22 +550,30 @@ type EDIDocument struct {
 }
 
 type Invoice struct {
-	ID             int      `json:"id"`
-	Version        int      `json:"version"`
-	URL            string   `json:"url"`
-	InvoiceNumber  int      `json:"invoiceNumber"`
-	InvoiceDate    string   `json:"invoiceDate"`
-	Customer       Customer `json:"customer"`
-	InvoiceDueDate string   `json:"invoiceDueDate"`
-	KID            string   `json:"kid"`
-	Comment        string   `json:"comment"`
-	Orders         Orders   `json:"orders"`
-	Voucher        Voucher  `json:"voucher"`
+	ID             int      `json:"id,omitempty"`
+	Version        int      `json:"version,omitempty"`
+	URL            string   `json:"url,omitempty"`
+	InvoiceNumber  int      `json:"invoiceNumber,omitempty"`
+	InvoiceDate    string   `json:"invoiceDate,omitempty"`
+	Customer       Customer `json:"customer,omitempty"`
+	InvoiceDueDate string   `json:"invoiceDueDate,omitempty"`
+	KID            string   `json:"kid,omitempty"`
+	Comment        string   `json:"comment,omitempty"`
+	Orders         Orders   `json:"orders,omitempty"`
+	Voucher        Voucher  `json:"voucher,omitempty"`
 	// Currency       Currency `json:"currency"`
-	InvoiceRemarks string  `json:"invoiceRemarks"`
-	PaymentTypeID  int     `json:"paymentTypeId"`
-	PaidAmount     float64 `json:"paidAmount"`
+	InvoiceRemarks string  `json:"invoiceRemarks,omitempty"`
+	PaymentTypeID  int     `json:"paymentTypeId,omitempty"`
+	PaidAmount     float64 `json:"paidAmount,omitempty"`
 	EhfSendStatus  string  `json:"ehfSendStatus,omitempty"`
+}
+
+func (i Invoice) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(i)
+}
+
+func (i Invoice) IsEmpty() bool {
+	return zero.IsZero(i)
 }
 
 type Vouchers []Voucher
@@ -578,6 +588,15 @@ type Voucher struct {
 	Document    *Document    `json:"document,omitempty"`
 	Attachment  *Attachment  `json:"attachment,omitempty"`
 	EDIDocument *EDIDocument `json:"ediDocument,omitempty"`
+}
+
+func (v Voucher) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(v)
+}
+
+func (v Voucher) IsEmpty() bool {
+	log.Fatal(zero.IsZero(v))
+	return zero.IsZero(v)
 }
 
 type Orders []Order
@@ -627,6 +646,10 @@ type Order struct {
 
 func (o Order) MarshalJSON() ([]byte, error) {
 	return omitempty.MarshalJSON(o)
+}
+
+func (o Order) IsEmpty() bool {
+	return zero.IsZero(o)
 }
 
 type Contacts []Contact
