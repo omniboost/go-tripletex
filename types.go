@@ -479,6 +479,15 @@ type Project struct {
 }
 
 type Product struct {
+	ID int `json:"id,omitempty"`
+}
+
+func (p Product) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(p)
+}
+
+func (p Product) IsEmpty() bool {
+	return zero.IsZero(p)
 }
 
 type Departments []Department
