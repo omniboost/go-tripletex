@@ -13,8 +13,10 @@ func TestOrderSearch(t *testing.T) {
 	req := client.NewOrderSearchRequest()
 	// req.QueryParams().DateFrom = tripletex.Date{time.Date(2020, 1, 1, 0, 0, 0, 0, time.Local)}
 	// req.QueryParams().DateTo = tripletex.Date{time.Now()}
-	req.QueryParams().OrderDateFrom = tripletex.Date{time.Date(2021, 3, 16, 0, 0, 0, 0, time.Local)}
-	req.QueryParams().OrderDateTo = tripletex.Date{time.Date(2022, 3, 16, 0, 0, 0, 0, time.Local)}
+	// req.QueryParams().OrderDateFrom = tripletex.Date{time.Date(2021, 3, 16, 0, 0, 0, 0, time.Local)}
+	// req.QueryParams().OrderDateTo = tripletex.Date{time.Date(2022, 3, 16, 0, 0, 0, 0, time.Local)}
+	req.QueryParams().OrderDateFrom = tripletex.Date{time.Date(2023, 3, 15, 0, 0, 0, 0, time.Local)}
+	req.QueryParams().OrderDateTo = tripletex.Date{time.Date(2023, 3, 16, 0, 0, 0, 0, time.Local)}
 	// req.QueryParams().Number = "FL-8772"
 	// req.QueryParams().Count = 10000
 	// req.QueryParams().From = 10000

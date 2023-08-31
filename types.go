@@ -478,8 +478,11 @@ func (e Employee) IsEmpty() bool {
 type Project struct {
 }
 
+type Products []Product
+
 type Product struct {
-	ID int `json:"id,omitempty"`
+	ID     int `json:"id,omitempty"`
+	Number string `json:"number,omitempty"`
 }
 
 func (p Product) MarshalJSON() ([]byte, error) {
@@ -514,12 +517,20 @@ func (d Department) IsEmpty() bool {
 type VATTypes []VATType
 
 type VATType struct {
-	ID         int     `json:"id"`
-	Version    int     `json:"version"`
-	URL        string  `json:"url"`
-	Name       string  `json:"name"`
-	Number     string  `json:"number"`
-	Percentage float64 `json:"percentage"`
+	ID         int     `json:"id,omitempty"`
+	Version    int     `json:"version,omitempty"`
+	URL        string  `json:"url,omitempty"`
+	Name       string  `json:"name,omitempty"`
+	Number     string  `json:"number,omitempty"`
+	Percentage float64 `json:"percentage,omitempty"`
+}
+
+func (t VATType) MarshalJSON() ([]byte, error) {
+	return omitempty.MarshalJSON(t)
+}
+
+func (t VATType) IsEmpty() bool {
+	return zero.IsZero(t)
 }
 
 type Currency struct {
@@ -614,13 +625,13 @@ type Order struct {
 	// ID                 int      `json:"id"`
 	// Version            int      `json:"version"`
 	// URL                string   `json:"url"`
-	Customer Customer `json:"customer"`
+	Customer Customer `json:"customer,omitempty"`
 	// Contact            Contact  `json:"contact"`
 	// Attn               Attn     `json:"attn"`
-	ReceiverEmail      string  `json:"receiverEmail"`
-	OverdueNoticeEmail string  `json:"overdueNoticeEmail"`
-	Number             string  `json:"number"`
-	Reference          string  `json:"reference"`
+	ReceiverEmail      string  `json:"receiverEmail,omitempty"`
+	OverdueNoticeEmail string  `json:"overdueNoticeEmail,omitempty"`
+	Number             string  `json:"number,omitempty"`
+	Reference          string  `json:"reference,omitempty"`
 	OurContact         Contact `json:"ourContact,omitempty"`
 	OurContactEmployee Contact `json:"ourContactEmployee,omitempty"`
 	// Department         struct {
@@ -629,20 +640,20 @@ type Order struct {
 	// 	Name             string `json:"name"`
 	// 	DepartmentNumber string `json:"departmentNumber"`
 	// } `json:"department"`
-	OrderDate string `json:"orderDate"`
+	OrderDate string `json:"orderDate,omitempty"`
 	// Project                                     Project    `json:"project"`
-	InvoiceComment string `json:"invoiceComment"`
+	InvoiceComment string `json:"invoiceComment,omitempty"`
 	// Currency       Currency `json:"currency"`
 	// InvoicesDueIn                               int        `json:"invoicesDueIn"`
 	// InvoicesDueInType                           string     `json:"invoicesDueInType"`
-	IsShowOpenPostsOnInvoices bool `json:"isShowOpenPostsOnInvoices"`
+	IsShowOpenPostsOnInvoices bool `json:"isShowOpenPostsOnInvoices,omitempty"`
 	// IsClosed                                    bool       `json:"isClosed"`
-	DeliveryDate string `json:"deliveryDate"`
+	DeliveryDate string `json:"deliveryDate,omitempty"`
 	// DeliveryAddress                             Address    `json:"deliveryAddress"`
 	// DeliveryComment                             string     `json:"deliveryComment"`
-	IsPrioritizeAmountsIncludingVat bool `json:"isPrioritizeAmountsIncludingVat"`
+	IsPrioritizeAmountsIncludingVat bool `json:"isPrioritizeAmountsIncludingVat,omitempty"`
 	// OrderLineSorting                            string     `json:"orderLineSorting"`
-	OrderLines OrderLines `json:"orderLines"`
+	OrderLines OrderLines `json:"orderLines,omitempty"`
 	// IsSubscription                              bool       `json:"isSubscription"`
 	// SubscriptionDuration                        int        `json:"subscriptionDuration"`
 	// SubscriptionDurationType                    string     `json:"subscriptionDurationType"`
@@ -733,10 +744,10 @@ func (a Address) IsEmpty() bool {
 type OrderLines []OrderLine
 
 type OrderLine struct {
-	ID int `json:"id"`
+	ID int `json:"id,omitempty"`
 	// Version int     `json:"version"`
 	// URL     string  `json:"url"`
-	Product Product `json:"product"`
+	Product Product `json:"product,omitempty"`
 	// Inventory struct {
 	// 	ID              int    `json:"id"`
 	// 	Version         int    `json:"version"`
@@ -745,17 +756,17 @@ type OrderLine struct {
 	// 	IsMainInventory bool   `json:"isMainInventory"`
 	// 	IsInactive      bool   `json:"isInactive"`
 	// } `json:"inventory"`
-	Description                   string  `json:"description"`
-	Count                         int     `json:"count"`
+	Description                   string  `json:"description,omitempty"`
+	Count                         int     `json:"count,omitempty"`
 	UnitCostCurrency              int     `json:"unitCostCurrency,omitempty"`
 	UnitPriceExcludingVATCurrency float64 `json:"unitPriceExcludingVatCurrency,omitempty"`
 	// Currency                      Currency `json:"currency"`
 	// Markup                        int     `json:"markup"`
 	// Discount                      int     `json:"discount"`
-	VATType                       VATType `json:"vatType"`
+	VATType                       VATType `json:"vatType,omitempty"`
 	UnitPriceIncludingVATCurrency float64 `json:"unitPriceIncludingVatCurrency,omitempty"`
 	AmountExcludingVATCurrency    float64 `json:"amountExcludingVatCurrency,omitempty"`
-	AmountIncludingVATCurrency    float64 `json:"amountIncludingVatCurrency"`
+	AmountIncludingVATCurrency    float64 `json:"amountIncludingVatCurrency,omitempty"`
 	// IsSubscription                bool    `json:"isSubscription"`
 	// SubscriptionPeriodStart       string  `json:"subscriptionPeriodStart"`
 	// SubscriptionPeriodEnd         string  `json:"subscriptionPeriodEnd"`

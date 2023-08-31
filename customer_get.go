@@ -37,8 +37,15 @@ func (r CustomerGetRequest) NewCustomerGetQueryParams() *CustomerGetQueryParams 
 }
 
 type CustomerGetQueryParams struct {
-	From  int `schema:"from"`
-	Count int `schema:"count"`
+	CustomerAccountNumber string `schema:"customerAccountNumber,omitempty"`
+	OrganizationNumber    string `schema:"organizationNumber,omitempty"`
+	Email                 string `schema:"email,omitempty"`
+	InvoiceEmail          string `schema:"invoiceEmail,omitempty"`
+	IsInactive            bool   `schema:"isInactive,omitempty"`
+	AccountManagerID      string `schema:"accountManagerId,omitempty"`
+	ChangedSince          Date   `schema:"changedSince,omitempty"`
+	From                  int    `schema:"from"`
+	Count                 int    `schema:"count"`
 }
 
 func (p CustomerGetQueryParams) ToURLValues() (url.Values, error) {
