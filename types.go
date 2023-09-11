@@ -724,13 +724,8 @@ type Address struct {
 	AddressLine2 string   `json:"addressLine2"`
 	PostalCode   string   `json:"postalCode"`
 	City         string   `json:"city"`
-	Country      struct {
-		ID            int    `json:"id"`
-		Version       int    `json:"version"`
-		ISOAlpha2Code string `json:"isoAlpha2Code"`
-		ISOAlpha3Code string `json:"isoAlpha3Code"`
-	} `json:"country"`
-	Name string `json:"name"`
+	Country      Country  `json:"country"`
+	Name         string   `json:"name"`
 }
 
 func (a Address) MarshalJSON() ([]byte, error) {
@@ -890,7 +885,7 @@ type Country struct {
 	URL            string `json:"url"`
 	Name           string `json:"name"`
 	DisplayName    string `json:"displayName"`
-	IsoAlpha2Code  string `json:"isoAlpha2Code"`
-	IsoAlpha3Code  string `json:"isoAlpha3Code"`
-	IsoNumericCode string `json:"isoNumericCode"`
+	ISOAlpha2Code  string `json:"isoAlpha2Code"`
+	ISOAlpha3Code  string `json:"isoAlpha3Code"`
+	ISONumericCode string `json:"isoNumericCode"`
 }
