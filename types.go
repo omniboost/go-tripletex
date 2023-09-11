@@ -481,7 +481,7 @@ type Project struct {
 type Products []Product
 
 type Product struct {
-	ID     int `json:"id,omitempty"`
+	ID     int    `json:"id,omitempty"`
 	Number string `json:"number,omitempty"`
 }
 
@@ -880,4 +880,17 @@ type Category struct {
 	Number      string `json:"number"`
 	Description string `json:"description"`
 	Type        int    `json:"type"`
+}
+
+type Countries []Country
+
+type Country struct {
+	ID             int    `json:"id"`
+	Version        int    `json:"version"`
+	URL            string `json:"url"`
+	Name           string `json:"name"`
+	DisplayName    string `json:"displayName"`
+	IsoAlpha2Code  string `json:"isoAlpha2Code"`
+	IsoAlpha3Code  string `json:"isoAlpha3Code"`
+	IsoNumericCode string `json:"isoNumericCode"`
 }
