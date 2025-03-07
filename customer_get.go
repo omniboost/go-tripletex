@@ -41,6 +41,8 @@ type CustomerGetQueryParams struct {
 	OrganizationNumber    string `schema:"organizationNumber,omitempty"`
 	Email                 string `schema:"email,omitempty"`
 	InvoiceEmail          string `schema:"invoiceEmail,omitempty"`
+	CustomerName          string `schema:"customerName,omitempty"`
+	PhoneNumberMobile     string `schema:"phoneNumberMobile,omitempty"`
 	IsInactive            bool   `schema:"isInactive,omitempty"`
 	AccountManagerID      string `schema:"accountManagerId,omitempty"`
 	ChangedSince          Date   `schema:"changedSince,omitempty"`
